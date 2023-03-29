@@ -5,8 +5,6 @@ var _helmet = require('helmet'); var _helmet2 = _interopRequireDefault(_helmet);
 require('./database');
 
 var _express = require('express'); var _express2 = _interopRequireDefault(_express);
-// import cors from 'cors';
-// import helmet from 'helmet';
 
 var _homeRoutes = require('./routes/homeRoutes'); var _homeRoutes2 = _interopRequireDefault(_homeRoutes);
 var _userRoutes = require('./routes/userRoutes'); var _userRoutes2 = _interopRequireDefault(_userRoutes);
