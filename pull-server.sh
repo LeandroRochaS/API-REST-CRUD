@@ -8,4 +8,4 @@ git push
 ssh 35.198.3.183 \
   'git -C /home/Leu/api/ ' \
   'pull origin master && ' \
-  'pm2 restart api && sudo systemctl restart nginx'
+  'pm2 restart API && sudo systemctl restart nginx'
