@@ -1,4 +1,6 @@
 import { resolve } from 'path';
+import cors from 'cors';
+import helmet from 'helmet';
 
 import './database';
 
@@ -12,6 +14,21 @@ import tokenRoutes from './routes/tokenRoutes';
 import alunoRoutes from './routes/alunoRoutes';
 import fotoRoutes from './routes/fotoRoutes';
 
+const whiteList = [
+  'http://35.198.3.183',
+  'http://localhost:3000',
+];
+
+const corsOptions = {
+  origin(origin, cb) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
+      cb(null, true);
+    } else {
+      cb(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
 class App {
   constructor() {
     this.app = express();
@@ -20,6 +37,8 @@ class App {
   }
 
   middlewares() {
+    this.app.use(cors(corsOptions));
+    this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use('/images/', express.static(resolve(__dirname, '..', 'uploads', 'images')));
