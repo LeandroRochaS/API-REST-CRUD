@@ -1,10 +1,9 @@
 import { resolve } from 'path';
-
+import cors from 'cors';
+import helmet from 'helmet';
 import './database';
 
 import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
 
 import homeRoutes from './routes/homeRoutes';
 import userRoutes from './routes/userRoutes';
@@ -13,20 +12,18 @@ import alunoRoutes from './routes/alunoRoutes';
 import fotoRoutes from './routes/fotoRoutes';
 
 const whiteList = [
-  'http://35.198.3.183/',
-  'http://localhost:3001',
+  'http://35.198.3.183',
+  'http://localhost:3000',
 ];
-
 const corsOptions = {
-  origin(origin, callback) {
+  origin(origin, cb) {
     if (whiteList.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
+      cb(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      cb(new Error('Not allowed by CORS'));
     }
   },
 };
-
 class App {
   constructor() {
     this.app = express();
@@ -50,5 +47,3 @@ class App {
     this.app.use('/fotos/', fotoRoutes);
   }
 }
-
-export default new App().app;
